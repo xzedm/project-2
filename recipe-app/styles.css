@@ -95,7 +95,7 @@ body {
     overflow-y: auto; 
   }
   
-  /* Modal content */
+  /* modal content */
   .modal-content {
     background-color: #fff;
     margin: 10% auto;
@@ -147,7 +147,6 @@ body {
     font-size: 40px;
   }
 
-  /* Header navigation styles */
 .header nav {
     margin-left: auto;
     padding-right: 20px;
