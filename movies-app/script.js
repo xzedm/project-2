@@ -19,12 +19,12 @@ function addClickEffectToCard(cards) {
 const homeButton = document.querySelector('.home-btn');
 
 homeButton.addEventListener('click', () => {
-    watchlistGrid.innerHTML = ''; // Clear other sections if needed
+    watchlistGrid.innerHTML = ''; // clear other sections if needed
     watchlistTitle.innerText = 'Popular Movies';
-    addPopular(); // Reload popular movies
+    addPopular(); // reload popular movies
 });
 
-// SEARCH MOVIES
+// search movies
 async function getMovieBySearch(searchTerm) {
     const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`);
     const responseData = await response.json();
@@ -34,7 +34,7 @@ async function getMovieBySearch(searchTerm) {
 searchButton.addEventListener('click', addSearchedMoviesToDom);
 
 async function addSearchedMoviesToDom() {
-    // Hide suggestions
+    // hide suggestions
     suggestionsContainer.style.display = 'none';
 
     const data = await getMovieBySearch(searchInput.value);
@@ -66,7 +66,7 @@ async function addSearchedMoviesToDom() {
     addClickEffectToCard(cards);
 }
 
-// POPUP
+// popup
 async function getMovieById(id) {
     const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`);
     const responseData = await response.json();
@@ -83,12 +83,12 @@ async function getMainCastNamesById(id) {
     const response = await fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}`);
     const responseData = await response.json();
 
-    // Sort by order, take only top 5 main cast members, and map to get names
+    // sort by order, take only top 5 main cast members, and map to get names
     const mainCastNames = responseData.cast
-        .sort((a, b) => a.order - b.order)  // Sort by order
-        .slice(0, 5)  // Limit to 5 main cast members
+        .sort((a, b) => a.order - b.order)  // sort by order
+        .slice(0, 5)  // limit to 5 main cast members
         .map(member => member.name)
-        .join("<br>");  // Extract names
+        .join("<br>");  // extract names
 
     return mainCastNames;
 }
@@ -97,13 +97,13 @@ async function getMainCrewInfoById(id) {
     const response = await fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}`);
     const responseData = await response.json();
     
-    // Filter for main crew roles and limit to 5 entries
+    // filter for main crew roles and limit to 5 entries
     const mainRoles = ["Director", "Producer", "Executive Producer", "Writer", "Composer"];
     const mainCrewInfo = responseData.crew
-        .filter(member => mainRoles.includes(member.job))  // Only include main roles
-        .slice(0, 5)  // Limit to 5 people
+        .filter(member => mainRoles.includes(member.job))  // only include main roles
+        .slice(0, 5)  // limit to 5 people
         .map(member => `${member.job}: ${member.name}`)
-        .join("<br>"); // Format with line breaks
+        .join("<br>"); // format with line breaks
 
     return mainCrewInfo;
 }
@@ -185,10 +185,10 @@ async function showPopup(card) {
     const heartIcon = popupModal.querySelector('.heart-icon');
 
     const movieIds = getLocalStorage();
-    for (let i = 0; i < movieIds.length; i++) { // Changed loop condition
+    for (let i = 0; i < movieIds.length; i++) { // changed loop condition
         if (movieIds[i] === movieId) {
             heartIcon.classList.add('change-color');
-            break; // Once found, no need to continue
+            break; // once found, no need to continue
         }
     }
 
@@ -204,7 +204,7 @@ async function showPopup(card) {
     });
 }
 
-// Local Storage
+// local Storage
 function getLocalStorage() {
     const movieIds = JSON.parse(localStorage.getItem('movie-id'));
     return movieIds === null ? [] : movieIds;
@@ -225,20 +225,20 @@ function toggleWatchlistTitle() {
     const movieIds = getLocalStorage();
 
     if (movieIds.length > 0) {
-        watchlistTitleElement.classList.remove('hidden'); // Show the title
+        watchlistTitleElement.classList.remove('hidden'); // show the title
     } else {
-        watchlistTitleElement.classList.add('hidden'); // Hide the title
+        watchlistTitleElement.classList.add('hidden'); // hide the title
     }
 }
 
-// Call this function after fetching favorite movies
+// call this function after fetching favorite movies
 fetchFavoriteMovies();
 
 async function fetchFavoriteMovies() {
     watchlistGrid.innerHTML = '';
     const moviesLS = getLocalStorage();
     const movies = [];
-    for (let i = 0; i < moviesLS.length; i++) { // Changed loop condition
+    for (let i = 0; i < moviesLS.length; i++) { // changed loop condition
         const movieId = moviesLS[i];
         let movie = await getMovieById(movieId);
         addWatchlistToDomFromLS(movie);
@@ -273,7 +273,7 @@ function addWatchlistToDomFromLS(movieData) {
     addClickEffectToCard(cards);
 }
 
-// Trending Movies
+// trending Movies
 getPopularMovies();
 
 async function getPopularMovies() {
@@ -315,7 +315,7 @@ const suggestionsContainer = document.querySelector('.suggestions');
 searchInput.addEventListener('input', async () => {
     const searchTerm = searchInput.value;
 
-    if (searchTerm.length > 2) { // Only search when input is meaningful
+    if (searchTerm.length > 2) { // only search when input is meaningful
         const results = await getMovieBySearch(searchTerm);
 
         suggestionsContainer.style.display = 'block';
@@ -323,13 +323,13 @@ searchInput.addEventListener('input', async () => {
             <div data-id="${movie.id}">${movie.title || movie.name}</div>
         `).join('');
 
-        // Add click event to each suggestion
+        // add click event to each suggestion
         const suggestions = document.querySelectorAll('.suggestions div');
         suggestions.forEach(suggestion => {
             suggestion.addEventListener('click', async () => {
                 const movieId = suggestion.getAttribute('data-id');
                 const movie = await getMovieById(movieId);
-                showPopup({ getAttribute: () => movieId }); // Open the modal for the selected movie
+                showPopup({ getAttribute: () => movieId }); // open the modal for the selected movie
                 suggestionsContainer.style.display = 'none';
             });
         });
