@@ -1,0 +1,215 @@
+body {
+    font-family: "Host Grotesk", sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .search-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  #search {
+    width: 40%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+  }
+  
+  #suggestions {
+    max-width: 41%;
+    margin: 0 auto;
+    text-align: left;
+    background-color: white;
+    border-radius: 15px;
+    margin-top: 5px;
+  }
+  /* #suggestions::after {
+    display: block;
+  } */
+  #search::placeholder {
+    font-family: "Host Grotesk", sans-serif;
+  }
+  .suggestion-item:hover {
+    background-color: #cac3c3;
+    border-radius: 15px;
+  }
+  
+  .suggestion-item {
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  .recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 70px;
+    padding: 40px 100px;
+
+  }
+  
+  .recipe-card {
+    border: 1px solid #ddd;
+    padding: 16px;
+    text-align: center;
+    position: relative;
+    width: 200px;
+    border-radius: 15px;
+    transition: 0.5s ease;
+  }
+  .recipe-card:hover {
+    transform: scale(1.3);
+  }
+  
+  .recipe-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    background-size: cover;
+  }
+  
+  button {
+    padding: 8px 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .3s ease;
+  }
+  button:hover {
+    background-color: #88ac06;
+    color: #fff;
+  }
+  
+  .modal {
+    display: none; 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1000; 
+    overflow-y: auto; 
+  }
+  
+  /* Modal content */
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 15px;
+    z-index: 1001; 
+    position: relative; 
+  }
+  
+  .close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .container {
+    background-image: url(img/strawberries-8033204_1280.jpg);
+    width: 60%;
+    height: 600px;
+    background-size: cover;
+    margin: 0 auto;
+    border-radius: 10px;
+    background-position: center center;
+  }
+  .container h1 {
+    text-align: center;
+    font-size: 50px;
+    color: #D21F3C;
+  }
+
+  .header {
+    background-color:  #D21F3C;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    color: white;
+    gap: 25px;
+  }
+
+  .header img {
+    width: 64px;
+    padding-left: 50px;
+  }
+
+  .section-name {
+    text-align: center;
+    font-size: 40px;
+  }
+
+  /* Header navigation styles */
+.header nav {
+    margin-left: auto;
+    padding-right: 20px;
+  }
+  
+  .header nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 20px;
+    font-size: 25px;
+  }
+
+  .header nav a:hover {
+    text-decoration: underline;
+  }
+
+  .section-heading {
+    text-align: center;
+    font-size: 40px;
+  }
+
+  #favorites-heading {
+    text-align: center;
+  }
+  
+
+
+  @media (max-width: 670px){
+    .recipe-card{
+      width: 90%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .header h2 {
+        display: none;
+    }
+    .header img {
+        width: 64px;
+        padding-left: 20px;
+      }
+      .container h1 {
+        font-size: 30px;
+        color: white;
+      }
+      .container {
+        width: 80%;
+      }
+
+      #search {
+        width: 70%;
+        height: 40px;
+        font-size: 20px;
+      }
+  }
+
+  @media (max-width: 520px){
+    .recipe-card{
+      width: 90%;
+    }
+    .recipe-grid {
+      padding: 40px 50px;
+    }
+  }

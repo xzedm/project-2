@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe App</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rosario:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Search Bar -->
+
+  <header class="header">
+    <img src="icons/logogo.png" alt="Logo">
+    <h2>Recipe Finder</h2>
+  </header>
+
+  <div class="container">
+    <h1>What do you want to cook today?</h1>
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Enter ingredient or dish name" oninput="suggestRecipes()">
+        <div id="suggestions"></div>
+      </div>
+  </div>
+
+  <div class="recipe-section">
+    <h2 class="section-name" style="display: none;">Recipes</h2>
+  </div>
+  <!-- Recipe Grid -->
+  <div class="recipe-grid" id="recipe-grid"></div>
+
+  <!-- Recipe Details Modal -->
+  <div id="recipe-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="recipe-name">Recipe Name</h2>
+      <h3>Ingredients</h3>
+      <ul id="ingredients-list"></ul>
+      <h3>Instructions</h3>
+      <ol id="instructions-list"></ol>
+      <h3>Nutritional Information</h3>
+      <p id="nutrition-info"></p>
+    </div>
+  </div>
+
+  <!-- Favorites Section -->
+  <div class="favorites-section">
+    <h1 id="favorites-heading" style="display: none;">Favorites</h1>
+    <div id="favorites-list" class="recipe-grid"></div>
+  </div>
+  
+
+  <script src="script.js"></script>
+</body>
+</html>
