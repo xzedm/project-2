@@ -54,13 +54,13 @@ body {
   border: 1px solid #ccc;
   background-color: #fff;
   position: absolute;
-  width: 31%; /* Adjust width to match the input */
+  width: 31%; 
   max-height: 200px;
   overflow-y: auto;
   z-index: 10;
   border-radius: 5px;
   margin-top: 40px;
-  box-sizing: border-box; /* Ensure padding is included in the width */
+  box-sizing: border-box; 
 }
 
 .suggestion-item {
@@ -90,56 +90,44 @@ body {
   text-align: center;
 }
 
-/* Media Queries for Responsiveness */
+/* media queries */
 @media (max-width: 768px) {
   .weather-app {
-    width: 90%; /* Make the weather app container take up more width on smaller screens */
-    padding: 15px; /* Reduce padding on smaller screens */
+    width: 90%; 
+    padding: 15px; 
   }
 
   #suggestions {
-    width: 78%; /* Ensure suggestions take full width on smaller screens */
-    margin-top: 40px; /* Adjust margin to be closer to the input */
+    width: 78%; 
+    margin-top: 40px;
   }
 
   .forecast-day {
-    width: 80px; /* Reduce width of forecast items on smaller screens */
+    width: 80px; 
   }
 }
 
 @media (max-width: 480px) {
   .weather-app {
-    width: 95%; /* Allow the weather app container to almost fill the screen on very small screens */
-    padding: 10px; /* Further reduce padding for tiny screens */
+    width: 95%; 
+    padding: 10px; 
   }
 
   #suggestions {
-    width: 68%; /* Ensure suggestions take full width on smaller screens */
-    margin-top: 40px; /* Adjust margin to be closer to the input */
+    width: 68%; 
+    margin-top: 40px; 
   }
 
   .forecast-day {
-    width: 70px; /* Further reduce the width of forecast items */
+    width: 70px; 
   }
 
   #city-input {
-    padding: 8px; /* Slightly reduce input padding */
+    padding: 8px;
   }
 
   #search-button, #current-location, #unit-toggle {
-    padding: 8px; /* Reduce button padding */
+    padding: 8px; 
   }
 }
 
-/* 
-@media (max-width: 700px){
-  #suggestions {
-    width: 85vw;
-  }
-}
-
-@media (max-width: 400px){
-  body {
-    height: 100%;
-  }
-} */
