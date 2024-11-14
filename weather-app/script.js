@@ -25,7 +25,7 @@ cityInput.addEventListener('input', async (e) => {
     if (query.length > 2) {
         await getCitySuggestions(query);
     } else {
-        suggestions.innerHTML = ''; // Clear suggestions when input is too short
+        suggestions.innerHTML = ''; // clear suggestions when input is too short
     }
 });
 
@@ -89,7 +89,7 @@ async function getCitySuggestions(query) {
 
 // suggestions
 function displaySuggestions(cities) {
-    suggestions.innerHTML = ''; // Clear previous suggestions
+    suggestions.innerHTML = ''; // clear previous suggestions
     cities.forEach(city => {
         const suggestionItem = document.createElement('div');
         suggestionItem.classList.add('suggestion-item');
@@ -97,7 +97,7 @@ function displaySuggestions(cities) {
         suggestionItem.addEventListener('click', () => {
             cityInput.value = city.name;
             fetchWeather(city.name);
-            suggestions.innerHTML = ''; // Clear suggestions after selection
+            suggestions.innerHTML = ''; // clear suggestions after selection
         });
         suggestions.appendChild(suggestionItem);
     });
