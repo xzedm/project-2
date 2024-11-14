@@ -18,27 +18,27 @@ function addClickEffectToCard(cards) {
 
 const homeButton = document.querySelector('.home-btn');
 
-let currentSection = 'home'; // Default to 'home'
+let currentSection = 'home'; // default to 'home'
 
-// Add a variable to track whether the user is in search results
+// add a variable to track whether the user is in search results
 searchButton.addEventListener('click', async () => {
-    currentSection = 'search'; // Set to 'search' when searching
-    await addSearchedMovies(); // Show search results
+    currentSection = 'search'; // set to 'search' when searching
+    await addSearchedMovies(); // show search results
 });
 
 
 
 homeButton.addEventListener('click', async () => {
-    currentSection = 'home'; // Set to 'home' when clicking home
-    watchlistGrid.innerHTML = ''; // Clear previous display
+    currentSection = 'home'; // set to 'home' when clicking home
+    watchlistGrid.innerHTML = ''; // clear previous display
 
     const movieIds = getLocalStorage();
     if (movieIds.length > 0) {
         watchlistTitle.innerText = 'Watchlist';
-        await fetchFavoriteMovies(); // Show watch list
+        await fetchFavoriteMovies(); // show watch list
     } else {
         watchlistTitle.innerText = 'Now Playing';
-        await addPopular(); // Show trending movies if watch list is empty
+        await addPopular(); // show trending movies if watch list is empty
     }
 });
 
