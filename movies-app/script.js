@@ -18,10 +18,28 @@ function addClickEffectToCard(cards) {
 
 const homeButton = document.querySelector('.home-btn');
 
-homeButton.addEventListener('click', () => {
-    watchlistGrid.innerHTML = ''; // clear other sections if needed
-    watchlistTitle.innerText = 'Popular Movies';
-    addPopular(); // reload popular movies
+let currentSection = 'home'; // Default to 'home'
+
+// Add a variable to track whether the user is in search results
+searchButton.addEventListener('click', async () => {
+    currentSection = 'search'; // Set to 'search' when searching
+    await addSearchedMovies(); // Show search results
+});
+
+
+
+homeButton.addEventListener('click', async () => {
+    currentSection = 'home'; // Set to 'home' when clicking home
+    watchlistGrid.innerHTML = ''; // Clear previous display
+
+    const movieIds = getLocalStorage();
+    if (movieIds.length > 0) {
+        watchlistTitle.innerText = 'Watchlist';
+        await fetchFavoriteMovies(); // Show watch list
+    } else {
+        watchlistTitle.innerText = 'Now Playing';
+        await addPopular(); // Show trending movies if watch list is empty
+    }
 });
 
 // search movies
@@ -31,9 +49,9 @@ async function getMovieBySearch(searchTerm) {
     return responseData.results;
 }
 
-searchButton.addEventListener('click', addSearchedMoviesToDom);
+searchButton.addEventListener('click', addSearchedMovies);
 
-async function addSearchedMoviesToDom() {
+async function addSearchedMovies() {
     // hide suggestions
     suggestionsContainer.style.display = 'none';
 
@@ -131,7 +149,7 @@ async function showPopup(card) {
                 </div>
                 <div class="movie-card-info">
                     <p>Add to Watchlist:</p>
-                    <p class="heart-icon"><i class='bx bx-bookmark-plus'></i></p>
+                    <p class="plus-icon"><i class='bx bx-bookmark-plus'></i></p>
                 </div>
             </div>
             <div class="right">
@@ -182,26 +200,60 @@ async function showPopup(card) {
     const backButton = document.querySelector('.back-btn');
     backButton.addEventListener('click', () => popupModal.classList.remove('show-popup'));
 
-    const heartIcon = popupModal.querySelector('.heart-icon');
+    const plusIcon = popupModal.querySelector('.plus-icon');
 
     const movieIds = getLocalStorage();
     for (let i = 0; i < movieIds.length; i++) { // changed loop condition
         if (movieIds[i] === movieId) {
-            heartIcon.classList.add('change-color');
-            break; // once found, no need to continue
+            plusIcon.classList.add('change-color');
         }
     }
 
-    heartIcon.addEventListener('click', () => {
-        if (heartIcon.classList.contains('change-color')) {
+    plusIcon.addEventListener('click', () => {
+        if (plusIcon.classList.contains('change-color')) {
             removeLocalStorage(movieId);
-            heartIcon.classList.remove('change-color');
+            plusIcon.classList.remove('change-color');
         } else {
             addToLocalStorage(movieId);
-            heartIcon.classList.add('change-color');
+            plusIcon.classList.add('change-color');
         }
         fetchFavoriteMovies();
+
+        // conditionally update based on current section
+        if (currentSection === 'search') {
+            addSearchedMovies(); // stay on search results if in search
+        }
     });
+}
+
+async function addSearchedMovies() {
+    suggestionsContainer.style.display = 'none';
+
+    const data = await getMovieBySearch(searchInput.value);
+    watchlistTitle.innerText = 'Results';
+    watchlistGrid.innerHTML = data.map(e => {
+        return `
+            <div class="movie-card" data-id="${e.id}">
+                <div class="img">
+                    <img src="${imagePath + e.poster_path}" alt="${e.title}">
+                </div>
+                <div class="info">
+                    <h2>${e.title}</h2>
+                    <div class="movie-card-info">
+                        <p>Release Date:</p>
+                        <p>${e.release_date || e.first_air_date}</p>
+                    </div>
+                    <div class="movie-card-info">
+                        <p>Rate: </p>
+                        <p>${e.vote_average}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const cards = document.querySelectorAll('.movie-card');
+    addClickEffectToCard(cards);
 }
 
 // local Storage
@@ -241,13 +293,13 @@ async function fetchFavoriteMovies() {
     for (let i = 0; i < moviesLS.length; i++) { // changed loop condition
         const movieId = moviesLS[i];
         let movie = await getMovieById(movieId);
-        addWatchlistToDomFromLS(movie);
+        addWatchlistFromLS(movie);
         movies.push(movie);
     }
     toggleWatchlistTitle();
 }
 
-function addWatchlistToDomFromLS(movieData) {
+function addWatchlistFromLS(movieData) {
     watchlistGrid.innerHTML += `
         <div class="movie-card" data-id="${movieData.id}">
             <div class="img">

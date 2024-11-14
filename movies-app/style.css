@@ -155,12 +155,12 @@ body {
     font-size: 1rem;
     padding: .5rem 0;
 }
-.content .left .movie-card-info .heart-icon {
+.content .left .movie-card-info .plus-icon {
     font-size: 2rem;
     user-select: none;
     cursor: pointer;
 }
-.content .left .movie-card-info .heart-icon:hover { 
+.content .left .movie-card-info .plus-icon:hover { 
     transform: scale(1.1); 
 }
 
